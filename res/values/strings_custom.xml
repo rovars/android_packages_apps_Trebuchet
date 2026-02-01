@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setting_home_screen">Home Screen</string>
+    <string name="setting_app_drawer">App Drawer</string>
+    <string name="setting_recent_apps">Recents</string>
+    <string name="setting_icons">Icons</string>
+    <string name="setting_misc">Misc</string>
+</resources>

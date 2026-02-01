@@ -41,6 +41,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat.OnPreferenceStartFragmentCallback;
 import androidx.preference.PreferenceFragmentCompat.OnPreferenceStartScreenCallback;
+import androidx.preference.PreferenceGroup;
 import androidx.preference.PreferenceGroup.PreferencePositionCallback;
 import androidx.preference.PreferenceScreen;
 import androidx.recyclerview.widget.RecyclerView;
@@ -172,11 +173,18 @@ public class SettingsActivity extends FragmentActivity
         }
 
         private void updatePreferences() {
-            PreferenceScreen screen = getPreferenceScreen();
-            for (int i = screen.getPreferenceCount() - 1; i >= 0; i--) {
-                Preference preference = screen.getPreference(i);
-                if (!initPreference(preference)) {
-                    screen.removePreference(preference);
+            updatePreferences(getPreferenceScreen());
+        }
+
+        private void updatePreferences(PreferenceGroup parent) {
+            for (int i = parent.getPreferenceCount() - 1; i >= 0; i--) {
+                Preference preference = parent.getPreference(i);
+                if (preference instanceof PreferenceGroup) {
+                    updatePreferences((PreferenceGroup) preference);
+                } else {
+                    if (!initPreference(preference)) {
+                        parent.removePreference(preference);
+                    }
                 }
             }
         }
