@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2026 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.preference.PreferenceCategory
+        android:title="@string/grid_options_title">
+
+        <ListPreference
+            android:key="pref_drawer_columns"
+            android:title="@string/grid_drawer_cols_title"
+            android:entries="@array/grid_column_entries"
+            android:entryValues="@array/grid_column_values"
+            android:summary="%s" />
+
+        <ListPreference
+            android:key="pref_workspace_columns"
+            android:title="@string/grid_home_cols_title"
+            android:entries="@array/grid_column_entries"
+            android:entryValues="@array/grid_column_values"
+            android:summary="%s" />
+
+        <ListPreference
+            android:key="pref_dock_columns"
+            android:title="@string/grid_dock_cols_title"
+            android:entries="@array/grid_column_entries"
+            android:entryValues="@array/grid_column_values"
+            android:summary="%s" />
+
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+        android:title="@string/setting_icons">
+
+        <SeekBarPreference
+            android:key="pref_icon_size"
+            android:title="@string/grid_icon_size_title"
+            android:defaultValue="@integer/grid_icon_size_default"
+            android:min="@integer/grid_icon_size_min"
+            android:max="@integer/grid_icon_size_max" />
+
+        <SeekBarPreference
+            android:key="pref_all_apps_icon_height"
+            android:title="@string/grid_all_apps_icon_height_title"
+            android:defaultValue="@integer/grid_all_apps_icon_height_default"
+            android:min="@integer/grid_all_apps_icon_height_min"
+            android:max="@integer/grid_all_apps_icon_height_max" />
+
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+        android:key="app_drawer_category"
+        android:title="@string/setting_app_drawer">
+
+        <SwitchPreference
+            android:key="pref_drawer_show_labels"
+            android:title="@string/drawer_show_labels"
+            android:defaultValue="true"
+            android:persistent="true" />
+
+        <SwitchPreference
+            android:key="pref_show_labels_landscape"
+            android:title="@string/show_labels_landscape"
+            android:defaultValue="false"
+            android:persistent="true" />
+
+    </androidx.preference.PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

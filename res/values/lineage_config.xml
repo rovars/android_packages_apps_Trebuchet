@@ -19,4 +19,34 @@
     <string name="icon_pack_settings_class" translatable="false">com.android.launcher3.lineage.icon.IconPackSettingsFragment</string>
     <!-- Default icon pack package. Set to "android" to use default / original icons -->
     <string name="icon_pack_default_pkg" translatable="false">android</string>
+
+    <string-array name="grid_column_entries" translatable="false">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <string-array name="grid_column_values" translatable="false">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <integer name="grid_icon_size_default">100</integer>
+    <integer name="grid_icon_size_min">80</integer>
+    <integer name="grid_icon_size_max">120</integer>
+
+    <integer name="grid_all_apps_icon_height_default">100</integer>
+    <integer name="grid_all_apps_icon_height_min">70</integer>
+    <integer name="grid_all_apps_icon_height_max">150</integer>
 </resources>

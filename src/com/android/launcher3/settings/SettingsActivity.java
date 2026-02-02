@@ -78,6 +78,9 @@ public class SettingsActivity extends FragmentActivity
 
     public static final String KEY_TRUST_APPS = "pref_trust_apps";
     public static final String KEY_ICON_PACK = "pref_icon_pack";
+    public static final String KEY_GRID_SETTINGS = "pref_customize_icons";
+    public static final String KEY_HOME_SETTINGS = "pref_home_options";
+    public static final String KEY_RECENTS_SETTINGS = "pref_recents_options";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -261,6 +264,24 @@ public class SettingsActivity extends FragmentActivity
                     return true;
                 case KEY_ICON_PACK:
                     setupIconPackPreference(preference);
+                    return true;
+                case KEY_GRID_SETTINGS:
+                    preference.setOnPreferenceClickListener(p -> {
+                        startActivity(new Intent(getActivity(), com.android.launcher3.lineage.grid.GridSettingsActivity.class));
+                        return true;
+                    });
+                    return true;
+                case KEY_HOME_SETTINGS:
+                    preference.setOnPreferenceClickListener(p -> {
+                        startActivity(new Intent(getActivity(), com.android.launcher3.lineage.home.HomeSettingsActivity.class));
+                        return true;
+                    });
+                    return true;
+                case KEY_RECENTS_SETTINGS:
+                    preference.setOnPreferenceClickListener(p -> {
+                        startActivity(new Intent(getActivity(), com.android.launcher3.lineage.recents.RecentsSettingsActivity.class));
+                        return true;
+                    });
                     return true;
             }
 

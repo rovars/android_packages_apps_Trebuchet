@@ -84,6 +84,13 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
     public static final String KEY_SHOW_DESKTOP_LABELS = "pref_desktop_show_labels";
     public static final String KEY_SHOW_DRAWER_LABELS = "pref_drawer_show_labels";
     public static final String KEY_SHOW_LABELS_LANDSCAPE = "pref_show_labels_landscape";
+
+    public static final String KEY_DRAWER_COLUMNS = "pref_drawer_columns";
+    public static final String KEY_WORKSPACE_COLUMNS = "pref_workspace_columns";
+    public static final String KEY_DOCK_COLUMNS = "pref_dock_columns";
+    public static final String KEY_ICON_SIZE = "pref_icon_size";
+    public static final String KEY_ALL_APPS_ICON_HEIGHT = "pref_all_apps_icon_height";
+
     public static final String KEY_ICON_PATH_REF = "pref_icon_shape_path";
     public static final String KEY_WORKSPACE_EDIT = "pref_workspace_edit";
 
@@ -118,6 +125,7 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
     public float iconTextSize;
     public float allAppsIconSize;
     public float allAppsIconTextSize;
+    public float allAppsIconHeightMultiplier;
 
     private SparseArray<TypedValue> mExtraAttrs;
 
@@ -166,6 +174,7 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
         dbFile = p.dbFile;
         allAppsIconSize = p.allAppsIconSize;
         allAppsIconTextSize = p.allAppsIconTextSize;
+        allAppsIconHeightMultiplier = p.allAppsIconHeightMultiplier;
         defaultLayoutId = p.defaultLayoutId;
         demoModeLayoutId = p.demoModeLayoutId;
         mExtraAttrs = p.mExtraAttrs;
@@ -209,6 +218,10 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
             apply(mContext, CHANGE_FLAG_ICON_PARAMS);
         } else if (KEY_SHOW_LABELS_LANDSCAPE.equals(key)) {
             onConfigChanged(mContext);
+        } else if (KEY_DRAWER_COLUMNS.equals(key) || KEY_WORKSPACE_COLUMNS.equals(key) ||
+                KEY_DOCK_COLUMNS.equals(key) || KEY_ICON_SIZE.equals(key) ||
+                KEY_ALL_APPS_ICON_HEIGHT.equals(key)) {
+            onConfigChanged(mContext);
         }
     }
 
@@ -235,6 +248,7 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
         result.landscapeIconSize = defaultDisplayOption.landscapeIconSize;
         result.allAppsIconSize = Math.min(
                 defaultDisplayOption.allAppsIconSize, myDisplayOption.allAppsIconSize);
+        allAppsIconHeightMultiplier = defaultDisplayOption.allAppsIconHeightMultiplier;
         initGrid(context, myInfo, result);
     }
 
@@ -276,18 +290,29 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
         numFolderColumns = closestProfile.numFolderColumns;
         numAllAppsColumns = closestProfile.numAllAppsColumns;
 
+        SharedPreferences prefs = Utilities.getPrefs(context);
+        numColumns = getIntFromString(prefs, KEY_WORKSPACE_COLUMNS, numColumns);
+        numHotseatIcons = getIntFromString(prefs, KEY_DOCK_COLUMNS, numHotseatIcons);
+        numAllAppsColumns = getIntFromString(prefs, KEY_DRAWER_COLUMNS, numAllAppsColumns);
+
+        float iconSizeMultiplier = getIntPref(prefs, KEY_ICON_SIZE,
+                context.getResources().getInteger(R.integer.grid_icon_size_default)) / 100f;
+
+        allAppsIconHeightMultiplier = getIntPref(prefs, KEY_ALL_APPS_ICON_HEIGHT,
+                context.getResources().getInteger(R.integer.grid_all_apps_icon_height_default)) / 100f;
+
         mExtraAttrs = closestProfile.extraAttrs;
 
-        iconSize = displayOption.iconSize;
+        iconSize = displayOption.iconSize * iconSizeMultiplier;
         iconShapePath = getIconShapePath(context);
         iconPack = new IconPackStore(context).getCurrent();
-        landscapeIconSize = displayOption.landscapeIconSize;
+        landscapeIconSize = displayOption.landscapeIconSize * iconSizeMultiplier;
         iconBitmapSize = ResourceUtils.pxFromDp(iconSize, displayInfo.metrics);
         iconTextSize = displayOption.iconTextSize;
         fillResIconDpi = getLauncherIconDensity(iconBitmapSize);
 
         if (Utilities.isGridOptionsEnabled(context)) {
-            allAppsIconSize = displayOption.allAppsIconSize;
+            allAppsIconSize = displayOption.allAppsIconSize * iconSizeMultiplier;
             allAppsIconTextSize = displayOption.allAppsIconTextSize;
         } else {
             allAppsIconSize = iconSize;
@@ -592,6 +617,33 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
         void onIdpChanged(int changeFlags, InvariantDeviceProfile profile);
     }
 
+    private int getIntFromString(SharedPreferences prefs, String key, int defaultValue) {
+        Object val = prefs.getAll().get(key);
+        if (val instanceof String) {
+            try {
+                return Integer.parseInt((String) val);
+            } catch (NumberFormatException e) {
+                return defaultValue;
+            }
+        } else if (val instanceof Integer) {
+            return (Integer) val;
+        }
+        return defaultValue;
+    }
+
+    private int getIntPref(SharedPreferences prefs, String key, int defaultValue) {
+        Object val = prefs.getAll().get(key);
+        if (val instanceof Integer) {
+            return (Integer) val;
+        } else if (val instanceof String) {
+            try {
+                return Integer.parseInt((String) val);
+            } catch (NumberFormatException e) {
+                return defaultValue;
+            }
+        }
+        return defaultValue;
+    }
 
     public static final class GridOption {
 
@@ -654,6 +706,7 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
         private float landscapeIconSize;
         private float allAppsIconSize;
         private float allAppsIconTextSize;
+        private float allAppsIconHeightMultiplier;
 
         DisplayOption(GridOption grid, Context context, AttributeSet attrs) {
             this.grid = grid;
@@ -675,6 +728,7 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
                     iconSize);
             allAppsIconTextSize = a.getFloat(R.styleable.ProfileDisplayOption_allAppsIconTextSize,
                     iconTextSize);
+            allAppsIconHeightMultiplier = 1f;
             a.recycle();
         }
 
@@ -695,6 +749,7 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
             allAppsIconSize *= w;
             iconTextSize *= w;
             allAppsIconTextSize *= w;
+            allAppsIconHeightMultiplier *= w;
             return this;
         }
 
@@ -704,6 +759,7 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
             allAppsIconSize += p.allAppsIconSize;
             iconTextSize += p.iconTextSize;
             allAppsIconTextSize += p.allAppsIconTextSize;
+            allAppsIconHeightMultiplier += p.allAppsIconHeightMultiplier;
             return this;
         }
     }

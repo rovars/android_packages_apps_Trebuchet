@@ -378,13 +378,13 @@ public class DeviceProfile {
             allAppsIconTextSizePx = Utilities.pxFromSp(inv.allAppsIconTextSize, mInfo.metrics);
             allAppsIconDrawablePaddingPx = iconDrawablePaddingOriginalPx;
             // We use 4 below to ensure labels are closer to their corresponding icon.
-            allAppsCellHeightPx = Math.round(allAppsIconSizePx + allAppsIconTextSizePx
-                    + (4 * allAppsIconDrawablePaddingPx));
+            allAppsCellHeightPx = Math.round((allAppsIconSizePx + allAppsIconTextSizePx
+                    + (4 * allAppsIconDrawablePaddingPx)) * inv.allAppsIconHeightMultiplier);
         } else {
             allAppsIconSizePx = iconSizePx;
             allAppsIconTextSizePx = iconTextSizePx;
             allAppsIconDrawablePaddingPx = iconDrawablePaddingPx;
-            allAppsCellHeightPx = getCellSize().y;
+            allAppsCellHeightPx = Math.round(getCellSize().y * inv.allAppsIconHeightMultiplier);
         }
         allAppsCellWidthPx = allAppsIconSizePx + allAppsIconDrawablePaddingPx;
 

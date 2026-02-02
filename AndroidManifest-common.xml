@@ -182,6 +182,24 @@
             android:theme="@android:style/Theme.DeviceDefault.Settings"
             android:autoRemoveFromRecents="true"  />
 
+        <activity
+            android:name="com.android.launcher3.lineage.grid.GridSettingsActivity"
+            android:label="@string/grid_title"
+            android:theme="@android:style/Theme.DeviceDefault.Settings"
+            android:autoRemoveFromRecents="true" />
+
+        <activity
+            android:name="com.android.launcher3.lineage.home.HomeSettingsActivity"
+            android:label="@string/home_options_title"
+            android:theme="@android:style/Theme.DeviceDefault.Settings"
+            android:autoRemoveFromRecents="true" />
+
+        <activity
+            android:name="com.android.launcher3.lineage.recents.RecentsSettingsActivity"
+            android:label="@string/recents_options_title"
+            android:theme="@android:style/Theme.DeviceDefault.Settings"
+            android:autoRemoveFromRecents="true" />
+
         <provider
             android:name="com.android.launcher3.testing.TestInformationProvider"
             android:authorities="${packageName}.TestInfo"

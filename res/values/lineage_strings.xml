@@ -49,6 +49,17 @@
     <string name="icon_pack_add">Install more</string>
     <string name="icon_pack_no_market">There\'s no available app store</string>
 
+    <!-- Grid -->
+    <string name="grid_title">Customize icons</string>
+    <string name="grid_options_title">Grid options</string>
+    <string name="grid_drawer_cols_title">App drawer columns</string>
+    <string name="grid_home_cols_title">Home screen columns</string>
+    <string name="grid_dock_cols_title">Dock columns</string>
+    <string name="grid_icon_size_title">Icon size</string>
+    <string name="grid_all_apps_icon_height_title">App drawer icon height</string>
+    <string name="home_options_title">Home screen options</string>
+    <string name="recents_options_title">Recents options</string>
+
     <!-- Wallpaper zoom -->
     <string name="enable_wallpaper_zoom_title">Enable wallpaper zooming</string>
     <string name="enable_wallpaper_zoom_summary">Zoom in or out the wallpaper when using drawer or recent apps</string>

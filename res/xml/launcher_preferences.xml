@@ -34,91 +34,19 @@
             </intent>
         </com.android.launcher3.settings.NotificationDotsPreference>
 
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="pref_workspace_edit"
-            android:persistent="true"
-            android:title="@string/settings_edit_allow_title"
-            android:summaryOn="@string/settings_edit_allow_summary_on"
-            android:summaryOff="@string/settings_edit_allow_summary_off" />
-
-        <SwitchPreference
-            android:key="pref_add_icon_to_home"
-            android:title="@string/auto_add_shortcuts_label"
-            android:summary="@string/auto_add_shortcuts_description"
-            android:defaultValue="true"
-            android:persistent="true" />
-
-        <SwitchPreference
-            android:key="pref_allowRotation"
-            android:title="@string/allow_rotation_title"
-            android:summary="@string/allow_rotation_desc"
-            android:defaultValue="@bool/allow_rotation"
-            android:persistent="true" />
-
-        <SwitchPreference
-            android:key="pref_sleep_gesture"
-            android:title="@string/pref_sleep_gesture_title"
-            android:summary="@string/pref_sleep_gesture_summary"
-            android:defaultValue="true"
-            android:persistent="true"/>
-
-        <SwitchPreference
-            android:key="pref_allow_wallpaper_zoom"
-            android:title="@string/enable_wallpaper_zoom_title"
-            android:summary="@string/enable_wallpaper_zoom_summary"
-            android:defaultValue="true"
-            android:persistent="true" />
-
-        <SwitchPreference
-            android:key="pref_desktop_show_labels"
-            android:title="@string/desktop_show_labels"
-            android:defaultValue="true"
-            android:persistent="true" />
-
-    </androidx.preference.PreferenceCategory>
-
-    <androidx.preference.PreferenceCategory
-        android:key="app_drawer_category"
-        android:title="@string/setting_app_drawer">
-
-        <SwitchPreference
-            android:key="pref_drawer_show_labels"
-            android:title="@string/drawer_show_labels"
-            android:defaultValue="true"
-            android:persistent="true" />
-
-        <SwitchPreference
-            android:key="pref_show_labels_landscape"
-            android:title="@string/show_labels_landscape"
-            android:defaultValue="false"
-            android:persistent="true" />
-
-    </androidx.preference.PreferenceCategory>
-
-    <androidx.preference.PreferenceCategory
-        android:key="recent_apps_category"
-        android:title="@string/setting_recent_apps">
-
-        <SwitchPreference
-            android:key="pref_show_meminfo"
-            android:title="@string/show_meminfo_title"
-            android:summary="@string/show_meminfo_summary"
-            android:defaultValue="true"
-            android:persistent="true" />
-
-        <SeekBarPreference
-            android:key="pref_overview_scrim_opacity"
-            android:title="@string/show_overview_scrim_title"
-            android:defaultValue="50"
-            android:max="100"
-            android:persistent="true" />
+        <Preference
+            android:key="pref_home_options"
+            android:title="@string/home_options_title" />
 
     </androidx.preference.PreferenceCategory>
 
     <androidx.preference.PreferenceCategory
         android:key="icons_category"
         android:title="@string/setting_icons">
+
+        <Preference
+            android:key="pref_customize_icons"
+            android:title="@string/grid_title" />
 
         <Preference
             android:key="pref_icon_pack"
@@ -129,6 +57,10 @@
     <androidx.preference.PreferenceCategory
         android:key="misc_category"
         android:title="@string/setting_misc">
+
+        <Preference
+            android:key="pref_recents_options"
+            android:title="@string/recents_options_title" />
 
         <Preference
             android:key="pref_trust_apps"
